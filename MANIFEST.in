@@ -1,0 +1,8 @@
+include README*
+include LICENSE
+
+# Add documentation to sdist-generated tarballs
+include test/*.rst
+include test/Makefile
+include test/make.bat
+include test/conf.py

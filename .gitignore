@@ -1,0 +1,3 @@
+tmp*.html
+tmp*.rst
+*.pyc

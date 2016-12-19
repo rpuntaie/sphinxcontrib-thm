@@ -65,6 +65,8 @@ The extension adds a
     .. proof:: title
 
 
+  You need to define these in ``conf.py`` via ``\newtheorem`` in the LATEX preamble. See below.
+
 - *environment* directive::
 
     .. environment::
@@ -104,8 +106,9 @@ The extension adds a
   Each of them has a separate numbering.
 
 
-.. todo: You can define your own environment in ``conf.py``::
-.. todo: 
-.. todo:     newtheorem(app, 'joke', 'Joke', 'joke')
+Here is an example `conf.py`:
+
+.. literalinclude:: test/conf.py
+   :language: python
 
 

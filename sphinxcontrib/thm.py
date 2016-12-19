@@ -74,6 +74,9 @@ See README.rst file for details
 
 """
 
+import tempfile
+import shutil
+import os
 from docutils.parsers.rst import directives
 from docutils.parsers.rst import Directive
 from docutils import nodes
@@ -184,11 +187,11 @@ class AlignDirective(Directive):
     def run(self):
 
         if self.arguments[0] in ('left', 'flushleft'):
-            align_type = 'fresh-left'
+            align_type = 'flushleft'
         elif self.arguments[0] in ('right', 'flushright'):
-            align_type = 'fresh-right'
+            align_type = 'flushright'
         else:
-            align_type = 'fresh-center'
+            align_type = 'center'
         self.options['align_type'] = align_type
         self.options['classes'] = directives.class_option(align_type)
 
@@ -486,62 +489,11 @@ def newtheorem(app, thmname, thmcaption, counter=None):
     thmnode = type(nodename, (TheoremNode,), {})
     globals()[nodename]=thmnode # important for pickling
     app.add_node(thmnode,
-                    html = (visit_thm_html, depart_theorem_html),
-                    latex = (visit_thm_latex, depart_theorem_latex),
+                    html = (visit_thm_html, depart_thm_html),
+                    latex = (visit_thm_latex, depart_thm_latex),
                 )
     TheoremDirective = TheoremDirectiveFactory(thmname, thmcaption, thmnode, counter)
     app.add_directive(thmname, TheoremDirective)
-
-
-def cleanup_tempdir(app, exc):
-    if exc:
-        return
-    if not hasattr(app.builder, '_thm_tempdir'):
-        return
-    try:
-        shutil.rmtree(app.builder._theorem_tempdir)
-    except Exception:
-        pass
-
-def builder_inited(app):
-    app.builder._theorem_tempdir = tempfile.mkdtemp()
-
-    if app.builder.name == "latex":
-        sty_path = os.path.join(app.builder._theorem_tempdir,
-                                "sphinxcontribthm.sty")
-        sty = open(sty_path, mode="w")
-        sty.write(r"\RequirePackage{amsthm}" + "\n")
-        #sty.write(r"\theoremstyle{plain}" + "\n")
-        #sty.write(r"\newtheorem{theorem}{Theorem}" + "\n")
-        #sty.write(r"\newtheorem{lemma}{Lemma}" + "\n")
-        #sty.write(r"\newtheorem{corollary}{Corollary}" + "\n")
-        #sty.write(r"\newtheorem{proposition}{Proposition}" + "\n")
-        #sty.write(r"\newtheorem{conjecture}{Conjecture}" + "\n")
-        #sty.write(r"\newtheorem{criterion}{Criterion}" + "\n")
-        #sty.write(r"\newtheorem{assertion}{Assertion}" + "\n")
-        #sty.write(r"\theoremstyle{definition}" + "\n")
-        #sty.write(r"\newtheorem{definition}{Definition}" + "\n")
-        #sty.write(r"\newtheorem{condition}{Condition}" + "\n")
-        #sty.write(r"\newtheorem{problem}{Problem}" + "\n")
-        #sty.write(r"\newtheorem{example}{Example}" + "\n")
-        #sty.write(r"\newtheorem{exercise}{Exercise}" + "\n")
-        #sty.write(r"\newtheorem{algorithm}{Algorithm}" + "\n")
-        #sty.write(r"\newtheorem{question}{Question}" + "\n")
-        #sty.write(r"\newtheorem{axiom}{Axiom}" + "\n")
-        #sty.write(r"\newtheorem{property}{Property}" + "\n")
-        #sty.write(r"\newtheorem{assumption}{Assumption}" + "\n")
-        #sty.write(r"\newtheorem{hypothesis}{Hypothesis}" + "\n")
-        #sty.write(r"\theoremstyle{remark}" + "\n")
-        #sty.write(r"\newtheorem{remark}{Remark}" + "\n")
-        #sty.write(r"\newtheorem{notation}{Notation}" + "\n")
-        #sty.write(r"\newtheorem{claim}{Claim}" + "\n")
-        #sty.write(r"\newtheorem{summary}{Summary}" + "\n")
-        #sty.write(r"\newtheorem{acknowledgment}{Acknowledgment}" + "\n")
-        #sty.write(r"\newtheorem{case}{Case}" + "\n")
-        #sty.write(r"\newtheorem{conclusion}{Conclusion}" + "\n")
-        sty.close()
-
-        app.builder.config.latex_additional_files.append(sty_path)
 
 
 # setup:
@@ -599,9 +551,6 @@ def setup(app):
     newtheorem(app,'case','Case','case')
     newtheorem(app,'conclusion','Conclusion','conclusion')
     newtheorem(app,'proof','Proof','proof')
-
-    app.connect('build-finished', cleanup_tempdir)
-    app.connect('builder-inited', builder_inited)
 
 
 # test if there is no global name which starts with 'thmnode_', 

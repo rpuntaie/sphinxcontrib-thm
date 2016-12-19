@@ -1,3 +1,6 @@
 tmp*.html
 tmp*.rst
 *.pyc
+.tox
+**/_build/*
+*egg-info*

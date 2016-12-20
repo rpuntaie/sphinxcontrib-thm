@@ -4,9 +4,13 @@ Description of the Theorem Sphinx Extension
 ===========================================
 
 This extension to `Sphinx <http://sphinx.pocoo.org/>`__ 
-that adds directives mentioned in the latex 
+adds directives mentioned in the LaTeX 
 `amsthm <http://mirror.easyname.at/ctan/macros/latex/required/amscls/doc/amsthdoc.pdf>`_
 package: theorem, example, exercise,...and more.
+
+Sphinx has no directive that would well fit such items.
+
+For LaTeX these are translated to ``\begin{theorem}{title}`` and so on. 
 
 ----
 
@@ -19,21 +23,24 @@ package: theorem, example, exercise,...and more.
 Prerequisites and Configuration
 ===============================
 
+This Sphinx extension must installed, e.g. using `PyPI
+<http://pypi.python.org/pypi/sphinxcontrib-thm>`__.
 
-This extension relies on software packages being installed on your computer:
+For LaTeX output LaTeX with ``amsthm`` (or ``ntheorem``) is needed.
+For the example also ``unicode-math`` is needed.
 
-- LaTeX with the ``amsthm`` package.
+For HTML output ``sphinx.ext.mathjax`` should probably be in `conf.py`_,
+because this extension is aimed at math authoring with Sphinx, 
+but it is not a requirement.
 
-If you have installed the *thm* Sphinx extension e.g. using `PyPI
-<http://pypi.python.org/pypi/sphinxcontrib-thm>`__, then you have to load the
-extension in the Sphinx project configuration file ``conf.py`` by::
+You have to load the extension in `conf.py`_::
 
-  extensions = ['sphinxcontrib.thm']
+  extensions = ['sphinxcontrib.thm',``sphinx.ext.mathjax``,...]
 
 Usage
 =====
 
-The extension adds a
+The extension adds 
 
 - several directives mentioned in `amsthm <http://mirror.easyname.at/ctan/macros/latex/required/amscls/doc/amsthdoc.pdf>`_::
 
@@ -65,17 +72,23 @@ The extension adds a
     .. proof:: title
 
 
-  You need to define these in ``conf.py`` via ``\newtheorem`` in the LATEX preamble. See below.
+  For LaTeX you need to define these in `conf.py`_ via ``\newtheorem`` in the LaTeX preamble. See below__.
+
+  While ``.. note::`` and others use ``\begin{sphinxadmonition}{title}``, these directives
+  are translated to ``\begin{theorem}{title}`` and so on. 
+
+__ `conf.py`_
 
 - *environment* directive::
 
-    .. environment::
-	:class: ENV_CLASS
-	:name: Definition
+    .. environment:: instruction
+	:name: Instruction
 	:html_title: title used by html builder
-	:latex_title: title used by latex builder
+	:latex_title: title used by LaTeX builder
 
   You can also use `:title:` if both `:html_title:` and `:latex_title:` should to be the same.  
+  Replace ``instruction``. It is a mandatory argument. In LaTeX you must have ``newtheorem{instruction}{Instruction}``,
+  unless it is an available LaTeX environment, like ``equation``.
 
 - *textcolor* directive and role::
 
@@ -88,13 +101,6 @@ The extension adds a
   Roles are not recursive. They can only contain
   text, no other nodes. Directives are recursive, though.
 
-- *endpar* directive::
-
-    .. endpar::
-
-  It puts r'\n\n' in LaTeX and <br> in html.
-  There is no other way to end a paragraph between two environments.
-
 - *align* directive::
 
     .. align:: center
@@ -105,10 +111,24 @@ The extension adds a
 
   Each of them has a separate numbering.
 
+For refs use the normal sphinx refs like::
+
+    .. _`theorem1`:
+
+    .. theorem:: title
+
+    Text here: By using backticks one can find the matching parts more easily in the editor.
+
+    See `theorem1`_. 
+
+In HTML one needs to provide formating via ``css``.
+This can be done using `conf.py`_.
+
+.. _`conf.py`:
 
 Here is an example `conf.py`:
 
-.. literalinclude:: test/conf.py
+.. literalinclude:: ../test/conf.py
    :language: python
 
 

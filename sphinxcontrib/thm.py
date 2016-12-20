@@ -127,7 +127,7 @@ def visit_environment_latex(self, node):
         self.body.append('\n\\begin{%s}' % (node['envname']))
 
 def depart_environment_latex(self, node):
-    self.body.append('\\end{%s}' % node['envname'])
+    self.body.append('\\end{%s}\n' % node['envname'])
 
 def visit_environment_html(self, node):
     """
@@ -211,15 +211,13 @@ def visit_align_latex(self, node):
     self.body.append('\n\\begin{%s}' % node['align_type'])
 
 def depart_align_latex(self, node):
-    self.body.append('\\end{%s}' % node['align_type'])
+    self.body.append('\\end{%s}\n' % node['align_type'])
 
 def visit_align_html(self, node):
-    # XXX: to be implemented.
-    pass
+    self.body.append(self.starttag(node, 'p', CLASS=node['align_type']))
 
 def depart_align_html(self, node):
-    # XXX: to be implemented.
-    pass
+    self.body.append('</p>')
 
 # TextColorDirective:
 class TextColorDirective(Directive):
@@ -387,7 +385,7 @@ def visit_thm_latex(self, node):
         self.body.append('\n\\begin{%(thmname)s}' % node)
 
 def depart_thm_latex(self, node):
-    self.body.append('\\end{%(thmname)s}' % node)
+    self.body.append('\\end{%(thmname)s}\n' % node)
 
 def visit_thm_html(self, node):
     """
@@ -406,17 +404,17 @@ def visit_thm_html(self, node):
     else:
         ids = []
 
-    self.body.append(self.starttag(node, 'div', CLASS='theoremenv %(thmname)s' % node, IDS = ids))
-    self.body.append('<div class="theoremenv_caption %(thmname)s_caption">%(thmcaption)s<span class="theoremenv_counter %(thmname)s_counter">%(counter)s</span>' % node)
+    self.body.append(self.starttag(node, 'div', CLASS='thm %(thmname)s' % node, IDS = ids))
+    self.body.append('<div class="thm_caption %(thmname)s_caption">%(thmcaption)s<span class="thm_counter %(thmname)s_counter">%(counter)s</span>' % node)
     if 'thmtitle' in node:
-        self.body.append('<span class="theoremenv_title %(thmname)s_title"> %(thmtitle)s </span>' % node)
-    self.body.append('</div>')
-    self.body.append('<div class="theoremenv_body %(thmname)s_body">' % node)
+        self.body.append('<span class="thm_title %(thmname)s_title"> %(thmtitle)s </span>' % node)
+    self.body.append('</div>\n')
+    self.body.append('<div class="thm_body %(thmname)s_body">' % node)
     self.set_first_last(node)
 
 def depart_thm_html(self, node):
     self.body.append('</div>')
-    self.body.append('</div>')
+    self.body.append('</div>\n')
 
 class Counter(object):
     """
@@ -518,6 +516,7 @@ def setup(app):
             latex = (visit_textcolor_latex, depart_textcolor_latex)
             )
 
+    #todo remove endpar
     app.add_directive('endpar', EndParDirective)
     app.add_node(endpar,
             html = (visit_endpar_html, depart_endpar_html),

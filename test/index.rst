@@ -8,6 +8,7 @@
 
 The extension adds a
 
+.. _theorem1:
 .. theorem:: title
 
    This is a *theorem*.
@@ -208,6 +209,7 @@ The extension adds a
 
    This is a *case*.
 
+
 .. conclusion:: title
 
    This is a *conclusion*.
@@ -216,15 +218,27 @@ The extension adds a
 
    This is a *proof*.
 
-.. environment::
-    :class: ENV_CLASS
-    :name: Definition
-    :html_title: title used by html builder
-    :latex_title: title used by latex builder
+   These classical Maxwell equations are written with unicode and converted by ``unicode-math`` for LaTex and 
+   by ``mathjax`` for HTML.
+
+   .. math::
+
+       ∇ × E = −∂B/∂t   \\
+       ∇ × H = J+ ∂D/∂t \\
+       ∇ · D = ρ        \\
+       ∇ · B = 0        \\
+       D = εE           \\
+       B = μH          
+
+
+.. environment:: instruction
+   :name: Instruction
+   :html_title: title used by html builder
+   :latex_title: title used by latex builder
 
    You can also use `:title:` if both `:html_title:` and `:latex_title:` should to be the same.  
-
-.. endpar::
+   Replace ``instruction``. It is a mandatory argument. In latex you must have ``newtheorem{instruction}{Instruction}``,
+   unless it is an available LaTeX environment, like ``equation``.
 
 .. align:: center
 
@@ -246,16 +260,15 @@ The extension adds a
 
    align is flushright
 
-
 .. textcolor:: #00FF00
 
    This text is green
 
-:textcolor:`<#FF0000> this text is red`.
-
-.. todo: You can define your own environment in ``conf.py``::
-.. todo: 
-.. todo:     newtheorem(app, 'joke', 'Joke', 'joke')
+Some text here is different: :textcolor:`<#FF0000> this text is red` and this is not.
 
 
+For refs use the normal sphinx refs like: see theorem1_.
+
+In HTML one needs to provide formating via ``css``::
+This can be done using ``conf.py``. See `conf.py`_.
 

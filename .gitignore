@@ -6,3 +6,4 @@ tmp*.rst
 *egg-info*
 dist
 build
+*-1\.*

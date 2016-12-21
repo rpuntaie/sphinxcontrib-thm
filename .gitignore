@@ -4,3 +4,4 @@ tmp*.rst
 .tox
 **/_build/*
 *egg-info*
+dist

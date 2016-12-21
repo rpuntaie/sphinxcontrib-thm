@@ -3,7 +3,7 @@
 Description of the Theorem Sphinx Extension
 ===========================================
 
-This extension to `Sphinx <http://sphinx.pocoo.org/>`__ 
+This extension to `Sphinx <http://sphinx.pocoo.org/>`_ 
 adds directives mentioned in the LaTeX 
 `amsthm <http://mirror.easyname.at/ctan/macros/latex/required/amscls/doc/amsthdoc.pdf>`_
 package: theorem, example, exercise,...and more.
@@ -14,20 +14,31 @@ For LaTeX these are translated to ``\begin{theorem}{title}`` and so on.
 
 ----
 
-:Version: 0.1
+:Version: 1.0
 :Author: Roland Puntaier ``roland.puntaier@gmail.com``
-:License: `BSD License <http://opensource.org/licenses/bsd-license.html>`__
+:License: `BSD License <http://opensource.org/licenses/bsd-license.html>`_
 :Git Repository: https://github.com/rpuntaie/sphinxcontrib-thm
 :PyPI Package: http://pypi.python.org/pypi/sphinxcontrib-thm
 
 Prerequisites and Configuration
 ===============================
 
-This Sphinx extension must installed, e.g. using `PyPI
-<http://pypi.python.org/pypi/sphinxcontrib-thm>`__.
+This Sphinx extension must installed. Use::
 
-For LaTeX output LaTeX with ``amsthm`` (or ``ntheorem``) is needed.
-For the example also ``unicode-math`` is needed.
+  pip install sphinxcontrib-thm 
+
+This takes it from `PyPI <http://pypi.python.org/pypi/sphinxcontrib-thm>`_.
+
+To install it from the `github <https://github.com/rpuntaie/sphinxcontrib-thm>`_ repository::
+
+  git clone https://github.com/rpuntaie/sphinxcontrib-thm
+  cd sphinxcontrib-thm
+  #don't use install here! It would produce a second sphinxcontrib folder
+  python setup.py sdist 
+  pip install dist/sphinxcontrib-thm*tar.gz
+
+For LaTeX output ``amsthm`` (or ``ntheorem``) is needed.
+For the example in the test folder also ``unicode-math`` is needed.
 
 For HTML output ``sphinx.ext.mathjax`` should probably be in `conf.py`_,
 because this extension is aimed at math authoring with Sphinx, 

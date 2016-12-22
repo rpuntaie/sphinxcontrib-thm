@@ -14,7 +14,6 @@ version = setupfile.VERSION
 release = setupfile.VERSION
 exclude_patterns = ['_build']
 pygments_style = 'sphinx'
-html_static_path = ['_static']
 htmlhelp_basename = 'thmdoc'
 latex_preamble = r"""
 %preamble for sphinxcontrib-thm
@@ -95,14 +94,14 @@ p.center{
 
 def custom_css(app,exception):
     "write additional thmstyle css into custom.css"
-    with open(exclude_patterns[0]+'/html/'+html_static_path[0]+'/custom.css','a') as f:
+    with open('_build/html/_static/custom.css','a',encoding='utf-8') as f:
         f.write(thmstyle)
 
 #def custom_css(app,exception):
 #    "copy all css into the html"
-#    prefx = exclude_patterns[0]+'/html/'
+#    prefx = '_build/html/'
 #    docf = prefx + master_doc+'.html'
-#    with open(docf,'r') as f: 
+#    with open(docf,'r',encoding='utf-8') as f: 
 #        doc = f.read()
 #    restsh = re.compile(r'<link rel="stylesheet" href="([^"]+)"\s+type="text/css"\s*/>')
 #    recss = re.compile(r'@import url\("([^"]+)"\);')
@@ -114,17 +113,17 @@ def custom_css(app,exception):
 #        if fn.find('custom.css')>0:
 #            docs[i] = "<style>\n"+thmstyle+"\n</style>";
 #        else:
-#            with open(fn,'r') as f:
+#            with open(fn,'r',encoding='utf-8') as f:
 #                css = f.read()
 #                csses = re.split(recss,css)
 #                for j in range(1,len(csses),2):
 #                    ffn = prefx+csspfx+'/'+csses[i]
-#                    with open(ffn,'r') as ff:
+#                    with open(ffn,'r',encoding='utf-8') as ff:
 #                        csses[i] = ff.read()
 #                css = "\n".join(csses)
 #                docs[i] = "<style>\n"+css+"\n</style>"
 #    doc = "\n".join(docs)
-#    with open(docf,'w') as f:
+#    with open(docf,'w',encoding='utf-8') as f:
 #        f.write(doc)
 
 def setup(app):

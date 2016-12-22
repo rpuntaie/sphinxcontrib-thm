@@ -8,7 +8,8 @@
 
 The extension adds a
 
-.. _theorem1:
+.. _`theorem1`:
+
 .. theorem:: title
 
    This is a *theorem*.
@@ -267,7 +268,7 @@ The extension adds a
 Some text here is different: :textcolor:`<#FF0000> this text is red` and this is not.
 
 
-For refs use the normal sphinx refs like: see theorem1_.
+For refs use the normal sphinx refs like: see `theorem1`_.
 
 In HTML one needs to provide formating via ``css``::
 This can be done using ``conf.py``. See `conf.py`_.

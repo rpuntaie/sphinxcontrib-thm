@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
 
+#sudo python setup.py bdist_wheel --universal
+#twine upload ./dist/sphinxcontrib*.whl
+
 DESCRIPTION      = 'Sphinx extension for directives mentioned in amsthm (theorem, example, exercise,...) and more'
 LONG_DESCRIPTION = DESCRIPTION
 NAME             = 'sphinxcontrib-thm'

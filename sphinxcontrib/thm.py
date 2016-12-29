@@ -55,13 +55,6 @@ Sphinx extension for directives mentioned in amsthm (theorem, example, exercise,
 Roles are not recursive. They can only contain
 text, no other nodes. Directives are recursive, though.
 
-*endpar* directive::
-
-    .. endpar::
-
-Puts r'\n\n' in LaTeX and <br> in html.
-There is no other way to end a paragraph between two environments.
-
 *align* directive::
 
     .. align:: center
@@ -276,32 +269,6 @@ def visit_textcolor_latex(self, node):
 def depart_textcolor_latex(self, node):
     self.body.append('}')
 
-# EndParDirective:
-class endpar(nodes.Element):
-    pass
-
-class EndParDirective(Directive):
-
-    required_arguments = 0
-    optional_arguments = 0
-
-    has_content = False
-
-    def run(self):
-        return [endpar()]
-
-def visit_endpar_latex(self, node):
-    self.body.append('\n\n')
-
-def depart_endpar_latex(self, node):
-    pass
-
-def visit_endpar_html(self, node):
-    self.body.append('\n<br>\n')
-
-def depart_endpar_html(self, node):
-    pass
-
 # TheoremDirectiveFactory:
 def TheoremDirectiveFactory(thmname, thmcaption, thmnode, counter=None):
     """
@@ -514,13 +481,6 @@ def setup(app):
     app.add_node(textcolor,
             html = (visit_textcolor_html, depart_textcolor_html),
             latex = (visit_textcolor_latex, depart_textcolor_latex)
-            )
-
-    #todo remove endpar
-    app.add_directive('endpar', EndParDirective)
-    app.add_node(endpar,
-            html = (visit_endpar_html, depart_endpar_html),
-            latex = (visit_endpar_latex, depart_endpar_latex)
             )
 
     # Add theorems from amsthm

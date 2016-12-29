@@ -116,8 +116,8 @@ def custom_css(app,exception):
 #    docs = re.split(restsh,doc)
 #    for i in range(1,len(docs),2):
 #        relpth = docs[i]
-#        csspfx = os.path.split()[0]
-#        fn = prefx + relpth
+#        csspfx = os.path.split(relpth)[0]
+#        fn = os.path.join(prefx,relpth)
 #        if fn.find('custom.css')>0:
 #            docs[i] = "<style>\n"+thmstyle+"\n</style>";
 #        else:

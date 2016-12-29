@@ -3,7 +3,7 @@
 DESCRIPTION      = 'Sphinx extension for directives mentioned in amsthm (theorem, example, exercise,...) and more'
 LONG_DESCRIPTION = DESCRIPTION
 NAME             = 'sphinxcontrib-thm'
-VERSION          = '1.0'
+VERSION          = '1.1'
 AUTHOR           = 'Marcin Szamotulski, Roland Puntaier'
 AUTHOR_EMAIL     = 'coot@riseup.net, roland.puntaier@gmail.com'
 URL              = 'https://www.github.com/rpuntaie/sphinxcontrib-thm',

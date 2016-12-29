@@ -14,7 +14,7 @@ For LaTeX these are translated to ``\begin{theorem}{title}`` and so on.
 
 ----
 
-:Version: 1.0
+:Version: 1.1
 :Author: Roland Puntaier ``roland.puntaier@gmail.com``
 :License: `BSD License <http://opensource.org/licenses/bsd-license.html>`_
 :Git Repository: https://github.com/rpuntaie/sphinxcontrib-thm

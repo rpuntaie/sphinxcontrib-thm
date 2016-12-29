@@ -6,6 +6,11 @@
 
 ----
 
+.. theorem:: 
+
+   Theorem without title.
+
+
 The extension adds a
 
 .. _`theorem1`:

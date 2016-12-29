@@ -88,7 +88,7 @@ The extension adds
   While ``.. note::`` and others use ``\begin{sphinxadmonition}{title}``, these directives
   are translated to ``\begin{theorem}{title}`` and so on. 
 
-__ `conf.py`_
+.. __: `conf.py`_
 
 - *environment* directive::
 
@@ -137,9 +137,8 @@ This can be done using `conf.py`_.
 
 .. _`conf.py`:
 
-Here is an example `conf.py`:
+Here is an example ``conf.py``:
 
 .. literalinclude:: ../test/conf.py
    :language: python
-
 

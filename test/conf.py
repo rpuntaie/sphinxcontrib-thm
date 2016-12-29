@@ -13,9 +13,10 @@ copyright = '2016, Roland Puntaier'
 version = setupfile.VERSION
 release = setupfile.VERSION
 exclude_patterns = ['_build']
+latex_show_urls = 'footnote'
 pygments_style = 'sphinx'
 htmlhelp_basename = 'thmdoc'
-latex_preamble = r"""
+preamble = r"""
 %preamble for sphinxcontrib-thm
 \usepackage{unicode-math}
 \usepackage{amsthm}%\usepackage{ntheorem} works too
@@ -50,7 +51,7 @@ latex_preamble = r"""
 \newtheorem{instruction}{Instruction}%because we used .. environment:: instruction
 %\newtheorem{proof}{Proof} for ntheorem
 """
-latex_elements = {'preamble':latex_preamble}
+latex_elements = {'preamble':preamble}
 latex_documents = [
   ('index', 'thm.tex', 'thm Sphinx Extension Documentation','Roland Puntaier', 'howto'),
 ]
@@ -92,40 +93,48 @@ p.center{
 }
 """
 
+def myopen(f,rw):
+    try:
+        return open(f,rw,encoding='utf-8')
+    except TypeError:
+        return open(f,rw)
+
 def custom_css(app,exception):
     "write additional thmstyle css into custom.css"
-    with open('_build/html/_static/custom.css','a',encoding='utf-8') as f:
+    fn = os.path.join(app.outdir,'_static','custom.css')
+    with myopen(fn,'a') as f:
         f.write(thmstyle)
 
 #def custom_css(app,exception):
 #    "copy all css into the html"
-#    prefx = '_build/html/'
-#    docf = prefx + master_doc+'.html'
-#    with open(docf,'r',encoding='utf-8') as f: 
+#    prefx = app.outdir
+#    docf = os.path.join(prefx,app.config.master_doc+'.html')
+#    with myopen(docf,'r') as f: 
 #        doc = f.read()
 #    restsh = re.compile(r'<link rel="stylesheet" href="([^"]+)"\s+type="text/css"\s*/>')
 #    recss = re.compile(r'@import url\("([^"]+)"\);')
 #    docs = re.split(restsh,doc)
 #    for i in range(1,len(docs),2):
 #        relpth = docs[i]
-#        csspfx = relpth.rsplit('/')[0]
+#        csspfx = os.path.split()[0]
 #        fn = prefx + relpth
 #        if fn.find('custom.css')>0:
 #            docs[i] = "<style>\n"+thmstyle+"\n</style>";
 #        else:
-#            with open(fn,'r',encoding='utf-8') as f:
+#            with myopen(fn,'r') as f:
 #                css = f.read()
 #                csses = re.split(recss,css)
 #                for j in range(1,len(csses),2):
-#                    ffn = prefx+csspfx+'/'+csses[i]
-#                    with open(ffn,'r',encoding='utf-8') as ff:
+#                    ffn = os.path.join(prefx,csspfx,csses[i])
+#                    with myopen(ffn,'r') as ff:
 #                        csses[i] = ff.read()
 #                css = "\n".join(csses)
 #                docs[i] = "<style>\n"+css+"\n</style>"
 #    doc = "\n".join(docs)
-#    with open(docf,'w',encoding='utf-8') as f:
+#    with myopen(docf,'w') as f:
 #        f.write(doc)
 
 def setup(app):
-    app.connect('build-finished', custom_css)
+    if 'html' in app.buildername:
+        app.connect('build-finished', custom_css)
 

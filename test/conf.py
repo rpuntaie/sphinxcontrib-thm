@@ -135,6 +135,10 @@ def custom_css(app,exception):
 #        f.write(doc)
 
 def setup(app):
-    if 'html' in app.buildername:
+    try:
+        has_html = 'html' in app.registry.builders
+    except:
+        has_html = 'html' in app.buildername
+    if has_html:
         app.connect('build-finished', custom_css)
 

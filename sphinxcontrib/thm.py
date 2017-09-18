@@ -124,7 +124,7 @@ def visit_environment_html(self, node):
     This visit method produces the following html:
 
     The 'theorem' below will be substituted with node['envname'] and title with
-    node['title'] (environment node's option).  Note that it differe slightly
+    node['title'] (environment node's option).  Note that it differs slightly
     from how LaTeX works::
 
         <div class='environment theorem'>
@@ -209,6 +209,7 @@ def visit_align_html(self, node):
 def depart_align_html(self, node):
     self.body.append('</p>')
 
+
 # TextColorDirective:
 class TextColorDirective(Directive):
 
@@ -248,7 +249,7 @@ def textcolor_role(name, rawtext, text, lineno, inliner, options={}, content=[])
     color_spec = text[1:text.index('>')]
     text = (text[text.index('>')+1:]).strip()
     textcolor_node = textcolor()
-    textcolor_node.children.append(nodes.Text(text))
+    textcolor_node.append(nodes.Text(text))
     textcolor_node['color_spec'] = color_spec
 
     return [textcolor_node], []
@@ -346,8 +347,13 @@ def visit_thm_html(self, node):
     self.body.append(self.starttag(node, 'div', CLASS='thm %(envname)s' % node))
 
     # Caption
-    self.body.append('<div class="thm_caption %(envname)s_caption">')
-    if self.builder.env.get_domain('std').is_enumerable_node(node):
+    self.body.append('<div class="thm_caption %(envname)s_caption">' % node)
+    std = self.builder.env.get_domain('std')
+    if std.is_enumerable_node(node):
+        #TODO no numbers added, because self.builder.fignumbers has no such figtype
+        #toc_tree.assign_figure_numbers(env) or toc_tree.get_updated_docs(app,env) first, but how?
+        #=>app.emit('env-get-updated', env), but where?
+        #self.builder.app.emit('env-get-updated', self.builder.env) here does not work
         self.add_fignumber(node)
     else:
         self.body.append('%(displayname)s' % node)
@@ -393,7 +399,6 @@ def newtheorem(app, envname, displayname, counter=None):
 
     TheoremDirective = TheoremDirectiveFactory(thmnode, envname, displayname, counter)
     app.add_directive(envname, TheoremDirective)
-
 
 class TheoremAutoNumbering(SphinxTransform):
     """
@@ -443,6 +448,7 @@ def setup(app):
     app.add_config_value('thm_theorems', [], 'env')
     app.connect('builder-inited', install_extension)
     app.add_transform(TheoremAutoNumbering)
+    return {'version':'1.2'}
 
     ############################
     # conf.py example setting

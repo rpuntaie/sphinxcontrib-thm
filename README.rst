@@ -23,7 +23,7 @@ For LaTeX these are translated to ``\begin{theorem}{title}`` and so on.
 Prerequisites and Configuration
 ===============================
 
-This Sphinx extension must installed. Use::
+This Sphinx extension must be installed. Use::
 
   pip install sphinxcontrib-thm 
 
@@ -36,6 +36,10 @@ To install it from the `github <https://github.com/rpuntaie/sphinxcontrib-thm>`_
   #don't use install here! It would produce a second sphinxcontrib folder
   python setup.py sdist 
   pip install dist/sphinxcontrib-thm*tar.gz
+
+or::
+
+  pip install git+https://github.com/rpuntaie/sphinxcontrib-thm
 
 For LaTeX output ``amsthm`` (or ``ntheorem``) is needed.
 For the example in the test folder also ``unicode-math`` is needed.
@@ -83,7 +87,7 @@ The extension adds
     .. proof:: title
 
 
-  For LaTeX you need to define these in `conf.py`_ via ``\newtheorem`` in the LaTeX preamble. See below__.
+  For LaTeX you need to separately define these in `conf.py`_ via ``\newtheorem`` in the LaTeX preamble. See below__.
 
   While ``.. note::`` and others use ``\begin{sphinxadmonition}{title}``, these directives
   are translated to ``\begin{theorem}{title}`` and so on. 

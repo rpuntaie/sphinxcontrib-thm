@@ -9,13 +9,48 @@ templates_path = ['_templates']
 source_suffix = '.rst'
 master_doc = 'index'
 project = 'thm Sphinx Extension'
-copyright = '2016, Roland Puntaier'
+copyright = '2017, Roland Puntaier'
 version = setupfile.VERSION
 release = setupfile.VERSION
 exclude_patterns = ['_build']
 latex_show_urls = 'footnote'
 pygments_style = 'sphinx'
 htmlhelp_basename = 'thmdoc'
+
+thm_use_environment = True
+thm_use_textcolor = True
+thm_use_align = True
+
+#envname, displayname, counter=None
+thm_theorems = [
+    ('theorem','Theorem','theorem'),
+    ('lemma','Lemma','lemma'),
+    ('corollary','Corollary','corollary'),
+    ('proposition','Proposition','proposition'),
+    ('conjecture','Conjecture','conjecture'),
+    ('criterion','Criterion','criterion'),
+    ('assertion','Assertion','assertion'),
+    ('definition','Definition','definition'),
+    ('condition','Condition','condition'),
+    ('problem','Problem','problem'),
+    ('example','Example','example'),
+    ('exercise','Exercise','exercise'),
+    ('algorithm','Algorithm','algorithm'),
+    ('question','Question','question'),
+    ('axiom','Axiom','axiom'),
+    ('property','Property','property'),
+    ('assumption','Assumption','assumption'),
+    ('hypothesis','Hypothesis','hypothesis'),
+    ('remark','Remark','remark'),
+    ('notation','Notation','notation'),
+    ('claim','Claim','claim'),
+    ('summary','Summary','summary'),
+    ('acknowledgment','Acknowledgment','acknowledgment'),
+    ('case','Case','case'),
+    ('conclusion','Conclusion','conclusion'),
+    ('proof','Proof')
+]
+
 preamble = r"""
 %preamble for sphinxcontrib-thm
 \usepackage{unicode-math}
@@ -135,10 +170,6 @@ def custom_css(app,exception):
 #        f.write(doc)
 
 def setup(app):
-    try:
-        has_html = 'html' in app.registry.builders
-    except:
-        has_html = 'html' in app.buildername
-    if has_html:
+    if 'html' in app.outdir:
         app.connect('build-finished', custom_css)
 

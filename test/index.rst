@@ -15,212 +15,215 @@ The extension adds a
 
 .. _`theorem1`:
 
-.. theorem:: title
+.. theorem:: title of theorem
+      :thmnode: thmnode
+      :envname: envname
+      :displayname: Satz
+      :counter: 1
 
    This is a *theorem*.
 
-.. lemma:: title
+.. lemma:: title of lemma
 
    This is a *lemma*.
 
-.. corollary:: title
+.. corollary:: title of corollary
 
    This is a *corollary*.
 
-.. proposition:: title
+.. proposition:: title of proposition
 
    This is a *proposition*.
 
-.. conjecture:: title
+.. conjecture:: title of conjecture
 
    This is a *conjecture*.
 
-.. criterion:: title
+.. criterion:: title of criterion
 
    This is a *criterion*.
 
-.. assertion:: title
+.. assertion:: title of assertion
 
    This is a *assertion*.
 
-.. definition:: title
+.. definition:: title of definition
 
    This is a *definition*.
 
-.. condition:: title
+.. condition:: title of condition
 
    This is a *condition*.
 
-.. problem:: title
+.. problem:: title of problem
 
    This is a *problem*.
 
-.. example:: title
+.. example:: title of example
 
    This is a *example*.
 
-.. exercise:: title
+.. exercise:: title of exercise
 
    This is a *exercise*.
 
-.. algorithm:: title
+.. algorithm:: title of algorithm
 
    This is a *algorithm*.
 
-.. question:: title
+.. question:: title of question
 
    This is a *question*.
 
-.. axiom:: title
+.. axiom:: title of axiom
 
    This is a *axiom*.
 
-.. property:: title
+.. property:: title of property
 
    This is a *property*.
 
-.. assumption:: title
+.. assumption:: title of assumption
 
    This is a *assumption*.
 
-.. hypothesis:: title
+.. hypothesis:: title of hypothesis
 
    This is a *hypothesis*.
 
-.. remark:: title
+.. remark:: title of remark
 
    This is a *remark*.
 
-.. notation:: title
+.. notation:: title of notation
 
    This is a *notation*.
 
-.. claim:: title
+.. claim:: title of claim
 
    This is a *claim*.
 
-.. summary:: title
+.. summary:: title of summary
 
    This is a *summary*.
 
-.. acknowledgment:: title
+.. acknowledgment:: title of acknowledgment
 
    This is a *acknowledgment*.
 
-.. case:: title
+.. case:: title of case
 
    This is a *case*.
 
-.. conclusion:: title
+.. conclusion:: title of conclusion
 
    This is a *conclusion*.
 
-.. proof:: title
+.. proof:: title of proof
 
    This is a *proof*.
 
-.. theorem:: title
+.. theorem:: title of theorem
 
    This is a *theorem*.
 
-.. lemma:: title
+.. lemma:: title of lemma
 
    This is a *lemma*.
 
-.. corollary:: title
+.. corollary:: title of corollary
 
    This is a *corollary*.
 
-.. proposition:: title
+.. proposition:: title of proposition
 
    This is a *proposition*.
 
-.. conjecture:: title
+.. conjecture:: title of conjecture
 
    This is a *conjecture*.
 
-.. criterion:: title
+.. criterion:: title of criterion
 
    This is a *criterion*.
 
-.. assertion:: title
+.. assertion:: title of assertion
 
    This is a *assertion*.
 
-.. definition:: title
+.. definition:: title of definition
 
    This is a *definition*.
 
-.. condition:: title
+.. condition:: title of condition
 
    This is a *condition*.
 
-.. problem:: title
+.. problem:: title of problem
 
    This is a *problem*.
 
-.. example:: title
+.. example:: title of example
 
    This is a *example*.
 
-.. exercise:: title
+.. exercise:: title of exercise
 
    This is a *exercise*.
 
-.. algorithm:: title
+.. algorithm:: title of algorithm
 
    This is a *algorithm*.
 
-.. question:: title
+.. question:: title of question
 
    This is a *question*.
 
-.. axiom:: title
+.. axiom:: title of axiom
 
    This is a *axiom*.
 
-.. property:: title
+.. property:: title of property
 
    This is a *property*.
 
-.. assumption:: title
+.. assumption:: title of assumption
 
    This is a *assumption*.
 
-.. hypothesis:: title
+.. hypothesis:: title of hypothesis
 
    This is a *hypothesis*.
 
-.. remark:: title
+.. remark:: title of remark
 
    This is a *remark*.
 
-.. notation:: title
+.. notation:: title of notation
 
    This is a *notation*.
 
-.. claim:: title
+.. claim:: title of claim
 
    This is a *claim*.
 
-.. summary:: title
+.. summary:: title of summary
 
    This is a *summary*.
 
-.. acknowledgment:: title
+.. acknowledgment:: title of acknowledgment
 
    This is a *acknowledgment*.
 
-.. case:: title
+.. case:: title of case
 
    This is a *case*.
 
-
-.. conclusion:: title
+.. conclusion:: title of conclusion
 
    This is a *conclusion*.
 
-.. proof:: title
+.. proof:: title of proof
 
    This is a *proof*.
 
@@ -242,8 +245,10 @@ The extension adds a
    :html_title: title used by html builder
    :latex_title: title used by latex builder
 
-   You can also use `:title:` if both `:html_title:` and `:latex_title:` should to be the same.  
-   Replace ``instruction``. It is a mandatory argument. In latex you must have ``newtheorem{instruction}{Instruction}``,
+   Use `:title:` if you want `:html_title:` and `:latex_title:` to be the same.  
+   Replace ``instruction``. It is a mandatory argument. 
+   Read the source in test/index.rst to understand this.
+   In LaTex you must have ``newtheorem{instruction}{Instruction}``,
    unless it is an available LaTeX environment, like ``equation``.
 
 .. align:: center

@@ -21,7 +21,7 @@ thm_use_environment = True
 thm_use_textcolor = True
 thm_use_align = True
 #thm_no_displayname = True #default is False
-#numfig = True
+numfig = True
 
 #envname, displayname, counter=None
 thm_theorems = [

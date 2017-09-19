@@ -349,18 +349,17 @@ def visit_thm_html(self, node):
     # Caption
     self.body.append('<div class="thm_caption %(envname)s_caption">' % node)
     env = self.builder.env
-    app = self.builder.app
     std = env.get_domain('std')
     if std.is_enumerable_node(node):
         if env.config.numfig:
             self.add_fignumber(node)
-        else:
+        elif not env.config.thm_no_displayname:
             figtype = std.get_figtype(node)
             self.body.append('<span class="caption-number">')
             prefix = self.builder.config.numfig_format.get(figtype)
             self.body.append(prefix % '' + ' ')
             self.body.append('</span>')
-    else:
+    elif not env.config.thm_no_displayname:
         self.body.append('%(displayname)s' % node)
     if 'title' in node:
         self.body.append('<span class="thm_title %(envname)s_title"> %(title)s </span>' % node)
@@ -393,7 +392,10 @@ def newtheorem(app, envname, displayname, counter=None):
     globals()[clsname]=thmnode # important for pickling
 
     if counter:
-        app.config.numfig_format.setdefault(envname, displayname+' %s')
+        if app.config.thm_no_displayname:
+            app.config.numfig_format.setdefault(envname, '%s')
+        else:
+            app.config.numfig_format.setdefault(envname, displayname+' %s')
         app.add_enumerable_node(thmnode, counter, get_thmnode_title,
             html = (visit_thm_html, depart_thm_html),
             latex = (visit_thm_latex, depart_thm_latex))
@@ -450,6 +452,7 @@ def setup(app):
     app.add_config_value('thm_use_environment', False, 'env')
     app.add_config_value('thm_use_textcolor', False, 'env')
     app.add_config_value('thm_use_align', False, 'env')
+    app.add_config_value('thm_no_displayname', False, 'env')
     app.add_config_value('thm_theorems', [], 'env')
     app.connect('builder-inited', install_extension)
     app.add_transform(TheoremAutoNumbering)
@@ -461,6 +464,7 @@ def setup(app):
     # thm_use_environment = True
     # thm_use_textcolor = True
     # thm_use_align = True
+    # thm_no_displayname = True
     # thm_theorems = [
     #     ('theorem','Theorem','theorem'),
     #     ('lemma','Lemma','lemma'),

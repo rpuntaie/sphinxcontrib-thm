@@ -6,20 +6,23 @@
 
 ----
 
+.. _`exmpls`:
+
+Examples
+========
+
+.. _`thm1`:
+
 .. theorem:: 
 
    Theorem without title.
 
+The following directives are defined in ``conf.py``.
+Set ``numfig=True`` to have the numbering.
 
-The extension adds a
-
-.. _`theorem1`:
+.. _`All Examples`:
 
 .. theorem:: title of theorem
-      :thmnode: thmnode
-      :envname: envname
-      :displayname: Satz
-      :counter: 1
 
    This is a *theorem*.
 
@@ -82,6 +85,8 @@ The extension adds a
 .. property:: title of property
 
    This is a *property*.
+
+.. _`smptn1`:
 
 .. assumption:: title of assumption
 
@@ -190,6 +195,8 @@ The extension adds a
 .. assumption:: title of assumption
 
    This is a *assumption*.
+
+.. _`scndhyp`:
 
 .. hypothesis:: title of hypothesis
 
@@ -277,8 +284,28 @@ The extension adds a
 
 Some text here is different: :textcolor:`<#FF0000> this text is red` and this is not.
 
+References
+----------
 
-For refs use the normal sphinx refs like: see `theorem1`_.
+To reference an entry one can use 
+
+- docutils refs like `All Examples`_.
+
+Using ``numref`` with ``%s`` or ``{number}`` one can let Sphinx automatically add in the right number to the link.
+With ``{name}`` the title of the theorem is inserted.
+
+- :numref:`Hypothesis %s<scndhyp>` is the second hypothesis.
+- :numref:`{name} {number} <scndhyp>` is the second hypothesis.
+
+``ref`` allows to have a link name different from the target name. In case of links to sections this name is automatic.
+
+- :ref:`First assumption<smptn1>` in docutils link style would need an indirection in between
+- :ref:`smptn1` in docutils link style would need an indirection in between
+- :ref:`Theorem <thm1>` in docutils link style would need an indirection in between
+- :ref:`exmpls` in docutils link style would need an indirection in between
+
+Formatting
+----------
 
 In HTML one needs to provide formating via ``css``::
 This can be done using ``conf.py``. See `conf.py`_.

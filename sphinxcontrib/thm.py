@@ -348,13 +348,18 @@ def visit_thm_html(self, node):
 
     # Caption
     self.body.append('<div class="thm_caption %(envname)s_caption">' % node)
-    std = self.builder.env.get_domain('std')
+    env = self.builder.env
+    app = self.builder.app
+    std = env.get_domain('std')
     if std.is_enumerable_node(node):
-        #TODO no numbers added, because self.builder.fignumbers has no such figtype
-        #toc_tree.assign_figure_numbers(env) or toc_tree.get_updated_docs(app,env) first, but how?
-        #=>app.emit('env-get-updated', env), but where?
-        #self.builder.app.emit('env-get-updated', self.builder.env) here does not work
-        self.add_fignumber(node)
+        if env.config.numfig:
+            self.add_fignumber(node)
+        else:
+            figtype = std.get_figtype(node)
+            self.body.append('<span class="caption-number">')
+            prefix = self.builder.config.numfig_format.get(figtype)
+            self.body.append(prefix % '' + ' ')
+            self.body.append('</span>')
     else:
         self.body.append('%(displayname)s' % node)
     if 'title' in node:

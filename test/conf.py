@@ -20,6 +20,7 @@ htmlhelp_basename = 'thmdoc'
 thm_use_environment = True
 thm_use_textcolor = True
 thm_use_align = True
+numfig = True
 
 #envname, displayname, counter=None
 thm_theorems = [
